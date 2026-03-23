@@ -1,46 +1,43 @@
-# Anomaly Detector for SMBs
+# Anomaly Detector PME
 
-Google Ads Script to automate your workflow.  
-Script Google Ads pour automatiser votre gestion SEA.  
+> Google Ads Script for SMBs — Detect abnormal drops in impressions, CPC spikes, and cost surges.
 
----
-## 🌍 Languages | Langues
-- 🇬🇧 English version → below  
-- 🇫🇷 Version française → plus bas  
+## What it does
 
----
+This script compares today's account-level metrics against a rolling average (last 7 days by default). It checks for three types of anomalies: impression drops, CPC spikes, and cost spikes. When any threshold is exceeded, an email alert is sent with the current values and baseline comparison.
 
-# 🇬🇧 English: Anomaly Detector for SMBs
+## Setup
 
-## 🎯 What it does
-Don't let a sudden CPC spike ruin your week. This script acts as your watchdog, alerting you the moment something breaks.
-- **Keywords/SEO:** script alerte anomalie google ads, anomaly tracker ads script, alerte cpc augmentation google ads
+1. Open Google Ads > Tools > Scripts
+2. Create a new script and paste the code from `main_en.gs` (or `main_fr.gs` for French)
+3. Update the `CONFIG` block at the top
+4. Authorize and run a preview first
+5. Schedule: **Daily** (ideally in the afternoon for meaningful same-day data)
 
-## ⚙️ Setup
-1. In **Google Ads → Tools & settings → Scripts → New script**.
-2. Paste the content of `main_en.gs`.
-3. Set `TEST_MODE = true` for safety, then preview.
+## CONFIG reference
 
----
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `TEST_MODE` | `true` | When true, logs alerts without sending emails |
+| `EMAIL` | `contact@yourdomain.com` | Email address for anomaly alerts |
+| `IMPRESSIONS_DROP_THRESHOLD` | `0.5` | Alert if today's impressions < 50% of average |
+| `CPC_SPIKE_THRESHOLD` | `1.5` | Alert if today's CPC > 150% of average |
+| `COST_SPIKE_THRESHOLD` | `1.5` | Alert if today's cost > 150% of daily average |
+| `COMPARISON_RANGE` | `LAST_7_DAYS` | Baseline period for average calculation |
+| `COMPARISON_DAYS` | `7` | Number of days in the comparison range |
 
-# 🇫🇷 Français : Anomaly Detector for SMBs
+## How it works
 
-## 🎯 Ce que fait le script
-Une PME ne regarde pas son compte tous les jours. Si le CPC double soudainement, ce script envoie une alerte immédiate.
-- **Mots-clés/SEO :** script alerte anomalie google ads, anomaly tracker ads script, alerte cpc augmentation google ads
+1. Fetches today's account stats and the baseline period stats
+2. Calculates daily averages for impressions, CPC, and cost
+3. Compares today's values against thresholds
+4. Sends an email alert listing all anomalies with percentage comparisons
 
-## ⚙️ Installation
-1. Dans **Google Ads → Outils & paramètres → Scripts → Nouveau script**.
-2. Collez le contenu de `main_fr.gs`.
-3. Paramétrez `TEST_MODE = true` par sécurité, puis Prévisualiser.
+## Requirements
 
----
-## 👤 Author | Auteur
-**Thibault Fayol – Consultant SEA PME**  
-🔗 Website: [https://thibaultfayol.com](https://thibaultfayol.com)  
+- Google Ads account
+- Google Ads Scripts access
 
-💡 *Une anomalie détectée est un budget sauvé. Pour une gestion proactive et sans faille, passez à l'accompagnement premium.* | *A detected anomaly is saved budget. Up vostro game with premium, proactive management.*
+## License
 
----
-## 📄 License | Licence
-MIT
+MIT — Thibault Fayol Consulting
